@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 class ThisMonthEarning extends StatefulWidget {
   const ThisMonthEarning({Key? key}) : super(key: key);
 
@@ -27,7 +26,6 @@ class _ThisMonthEarningState extends State<ThisMonthEarning> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     for(int i =0;i<_list.length;i++){
@@ -44,13 +42,15 @@ class _ThisMonthEarningState extends State<ThisMonthEarning> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
+    print(id['id']);
     return Scaffold(
+      appBar: AppBar(title: Text('Income Details'),),
       body: SingleChildScrollView(
         child: Column(
           children: [
-
              Container(
-              height: MediaQuery.of(context).size.height*0.85,
+              height: MediaQuery.of(context).size.height*0.7,
               width: MediaQuery.of(context).size.width,
               child: ListView.builder(
                   itemCount: _list.length,

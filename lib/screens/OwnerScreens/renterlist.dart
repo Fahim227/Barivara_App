@@ -29,7 +29,10 @@ class _RenterListState extends State<RenterList> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
+    print(id['id']);
     return Scaffold(
+      appBar: AppBar(title: Text('Renter List'),),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

@@ -1,9 +1,7 @@
-import 'package:bari_vara_project/screens/login.dart';
+import 'package:bari_vara_project/screens/OwnerScreens/flatlist.dart';
 import 'package:flutter/material.dart';
-import 'package:bari_vara_project/components/backgroundimage.dart';
-import 'package:bari_vara_project/components/roundbutton.dart';
-import 'package:bari_vara_project/screens/register.dart';
-import 'package:flutter/physics.dart';
+import 'package:bari_vara_project/screens/OwnerScreens/renterlist.dart';
+import 'package:bari_vara_project/screens/OwnerScreens/earning.dart';
 
 class OwnerHomeScreen extends StatefulWidget {
   final int id;
@@ -134,42 +132,78 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                   ),
                 ),
               ),
-              Card(
-                color: Colors.blue[300],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))
-                ),
-                child: Container(
-                  height: MediaQuery.of(context).size.height*0.151,
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Text('Flat List ->', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 35),),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FlatList(),
+                      settings: RouteSettings(
+                        arguments: {"id": widget.id}
+                      )
+                      ));
+                },
+                child: Card(
+                  color: Colors.blue[300],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))
+                  ),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height*0.151,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Text('Flat List ->', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 35),),
+                    ),
                   ),
                 ),
               ),
-              Card(
-                color: Colors.blue[300],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))
-                ),
-                child: Container(
-                  height: MediaQuery.of(context).size.height*0.151,
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Text('Renter List ->', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 35),),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RenterList(),
+                          settings: RouteSettings(
+                              arguments: {"id": widget.id}
+                          )
+                      ));
+                },
+                child: Card(
+                  color: Colors.blue[300],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))
+                  ),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height*0.151,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Text('Renter List ->', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 35),),
+                    ),
                   ),
                 ),
               ),
-              Card(
-                color: Colors.blue[300],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))
-                ),
-                child: Container(
-                  height: MediaQuery.of(context).size.height*0.151,
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Text('This Month Earnings ->', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 30),),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ThisMonthEarning(),
+                          settings: RouteSettings(
+                              arguments: {"id": widget.id}
+                          )
+                      ));
+                },
+                child: Card(
+                  color: Colors.blue[300],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))
+                  ),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height*0.151,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Text('This Month Earnings ->', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 30),),
+                    ),
                   ),
                 ),
               ),
