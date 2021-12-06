@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bari_vara_project/screens/flatdetails.dart';
+import 'package:get/get.dart';
+import 'package:bari_vara_project/controller/owner_flat_list.dart';
 class FlatList extends StatefulWidget {
   const FlatList({Key? key}) : super(key: key);
 
@@ -8,6 +10,7 @@ class FlatList extends StatefulWidget {
 }
 
 class _FlatListState extends State<FlatList> {
+  final OwnerFlatListController ownerFlatListController = Get.put(OwnerFlatListController(1));
 
   final List _list = [{"flat Number": 1,"flat_renter":"Hasan","flat_renting_price":"10000"},
     {"flat Number": 1,"flat_renter":"Hasan","flat_renting_price":"10000"},
@@ -21,13 +24,20 @@ class _FlatListState extends State<FlatList> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
-    final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
-    print(id['id']);
+    /*final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
+    print(id['id']);*/
     return Scaffold(
       appBar: AppBar(title: Text('Flat List'),),
-      body: Container(
+      body: /*Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView.builder(
@@ -35,7 +45,24 @@ class _FlatListState extends State<FlatList> {
             itemBuilder: (BuildContext context,int index){
               return sampleListUi(index);
             }),
-      ),
+      ),*/
+
+
+      Obx(() {
+        if (ownerFlatListController.isLoading.value)
+          return Center(child: CircularProgressIndicator(),);
+        else
+          print(ownerFlatListController.flatList[0].flatRenterId);
+          return Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+                itemCount: _list.length,
+                itemBuilder: (BuildContext context,int index){
+                  return sampleListUi(index);
+                }),
+          );
+      })
     );
   }
   Widget sampleListUi(int idx){

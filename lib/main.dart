@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:bari_vara_project/screens/OwnerScreens/renterlist.dart';
 import 'package:flutter/material.dart';
 import 'package:bari_vara_project/screens/login.dart';
@@ -9,7 +10,7 @@ import 'package:bari_vara_project/screens/OwnerScreens/flatlist.dart';
 import 'package:bari_vara_project/screens/OwnerScreens/earning.dart';
 int nid =1;
 void main() => runApp(MaterialApp(
-      initialRoute: '/classify',
+      initialRoute: '/flatlist',
       routes: {
         '/': (context) => LoginScreen('owner'),
         '/classify': (context) => OwnerOrRenter(loginOrReg: 'login'), //1st screen
