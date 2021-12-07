@@ -115,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                           RegisterScreen(type)),
+                                           Register(type:type)),
                                 );
                               },
                               child: new Text(

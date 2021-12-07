@@ -10,7 +10,7 @@ import 'package:bari_vara_project/screens/OwnerScreens/flatlist.dart';
 import 'package:bari_vara_project/screens/OwnerScreens/earning.dart';
 int nid =1;
 void main() => runApp(MaterialApp(
-      initialRoute: '/flatlist',
+      initialRoute: '/classify',
       routes: {
         '/': (context) => LoginScreen('owner'),
         '/classify': (context) => OwnerOrRenter(loginOrReg: 'login'), //1st screen

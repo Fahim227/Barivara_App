@@ -1,26 +1,14 @@
 
 class Response{
-  late int _id;
-  late String _message;
-  late bool _response;
+  late int id;
+  late String message;
+  late bool response;
 
-  Response(this._id, this._message, this._response);
+  Response({required this.id, required this.message, required this.response});
 
-  bool get response => _response;
 
-  set response(bool value) {
-    _response = value;
-  }
+  factory Response.fromJson(Map<String,dynamic> json) =>  Response(id: json['id'], message: json['message'], response:json['response']);
 
-  String get message => _message;
 
-  set message(String value) {
-    _message = value;
-  }
 
-  int get id => _id;
-
-  set id(int value) {
-    _id = value;
-  }
 }

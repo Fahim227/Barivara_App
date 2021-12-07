@@ -41,7 +41,7 @@ class OwnerOrRenter extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegisterScreen(owner)),
+                                builder: (context) => Register(type: owner,)),
                           );
                         }
 
@@ -72,7 +72,7 @@ class OwnerOrRenter extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegisterScreen(renter)),
+                                builder: (context) => Register(type: renter)),
                           );
                         }
                       },
