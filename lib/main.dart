@@ -12,7 +12,7 @@ int nid =1;
 void main() => runApp(MaterialApp(
       initialRoute: '/classify',
       routes: {
-        '/': (context) => LoginScreen('owner'),
+        '/': (context) => LoginScreen(type:'owner'),
         '/classify': (context) => OwnerOrRenter(loginOrReg: 'login'), //1st screen
         '/ownerHome': (context) => OwnerHomeScreen(id: nid,),
         '/renterHome': (context) => RenterHomeScreen(id: 2,),

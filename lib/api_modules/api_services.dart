@@ -11,7 +11,7 @@ class ApiService{
 
     print('jsonString');
     var response = await client.post(
-      Uri.parse('$address+ownerFlatList/'),
+      Uri.parse('${address}ownerFlatList/'),
       body:{
         "id" : id.toString(),
       }
@@ -59,6 +59,26 @@ class ApiService{
     }
 
 
+
+  }
+
+  static Future<Response> login(String mail, String pass,String type) async{
+
+    var response =  await client.post(
+        Uri.parse(
+            address+'login/$type/'),
+        body: {
+          "emailOrphone": mail,
+          "password" : pass
+        }
+    );
+
+    if (response.statusCode ==200 || response.statusCode == 400){
+      return Response.fromJson(jsonDecode(response.body));
+    }
+    else{
+      throw Exception("Failed to Load Data");
+    }
 
   }
 

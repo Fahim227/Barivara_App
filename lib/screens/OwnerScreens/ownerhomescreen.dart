@@ -19,6 +19,8 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
   final int leftRoom=0;
   @override
   Widget build(BuildContext context) {
+
+    print(widget.id);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(

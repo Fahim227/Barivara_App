@@ -10,6 +10,7 @@ String ownerFlatListToJson(List<OwnerFlatList> data) => json.encode(List<dynamic
 
 class OwnerFlatList {
   OwnerFlatList({
+    required this.flatRenterName,
     required this.flatId,
     required this.rentAmount,
     required this.size,
@@ -30,8 +31,10 @@ class OwnerFlatList {
   String flatAddress;
   int flatOwnerId;
   int flatRenterId;
+  String flatRenterName;
 
   factory OwnerFlatList.fromJson(Map<String, dynamic> json) => OwnerFlatList(
+    flatRenterName: json['flat_renter_name'],
     flatId: json["flat_id"],
     rentAmount: json["rent_amount"],
     size: json["size"],

@@ -34,7 +34,7 @@ class OwnerOrRenter extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginScreen(owner)),
+                                builder: (context) => LoginScreen(type: owner,)),
                           );
                         }
                         else{
@@ -65,7 +65,7 @@ class OwnerOrRenter extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginScreen(renter)),
+                                builder: (context) => LoginScreen(type: renter,)),
                           );
                         }
                         else{

@@ -1,3 +1,4 @@
+import 'package:bari_vara_project/models/owner/owner_flat_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bari_vara_project/screens/flatdetails.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ class FlatList extends StatefulWidget {
 class _FlatListState extends State<FlatList> {
   final OwnerFlatListController ownerFlatListController = Get.put(OwnerFlatListController(1));
 
-  final List _list = [{"flat Number": 1,"flat_renter":"Hasan","flat_renting_price":"10000"},
+    late List<OwnerFlatList> _list ; /*[{"flat Number": 1,"flat_renter":"Hasan","flat_renting_price":"10000"},
     {"flat Number": 1,"flat_renter":"Hasan","flat_renting_price":"10000"},
     {"flat Number": 2,"flat_renter":"Hasan","flat_renting_price":"10000"},
     {"flat Number": 3,"flat_renter":"Hasan","flat_renting_price":"10000"},
@@ -21,7 +22,7 @@ class _FlatListState extends State<FlatList> {
     {"flat Number": 6,"flat_renter":"Hasan","flat_renting_price":"10000"},
     {"flat Number": 9,"flat_renter":"Hasan","flat_renting_price":"10000"},
     {"flat Number": 11,"flat_renter":"Hasan","flat_renting_price":"10000"},
-  ];
+  ];*/
 
   @override
   void initState() {
@@ -52,7 +53,9 @@ class _FlatListState extends State<FlatList> {
         if (ownerFlatListController.isLoading.value)
           return Center(child: CircularProgressIndicator(),);
         else
+          print(ownerFlatListController.flatList.length);
           print(ownerFlatListController.flatList[0].flatRenterId);
+          _list = ownerFlatListController.flatList;
           return Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -92,11 +95,11 @@ class _FlatListState extends State<FlatList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Flat Number: ${_list[idx]['flat Number']}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
+              Text("Flat Number: ${_list[idx].flatNumber}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
               SizedBox(height: 5,),
-              Text("Flat Renter: ${_list[idx]['flat_renter']}", style: TextStyle(color: Colors.white,fontSize: 20),),
+              Text("Flat Renter: ${_list[idx].flatRenterName}", style: TextStyle(color: Colors.white,fontSize: 20),),
               SizedBox(height: 5,),
-              Text("Flat Renting Price: ${_list[idx]['flat_renting_price']}",style: TextStyle(color: Colors.white,fontSize: 20),),
+              Text("Flat Renting Price: ${_list[idx].rentAmount}",style: TextStyle(color: Colors.white,fontSize: 20),),
               SizedBox(height: 5,),
             ],
           ),
