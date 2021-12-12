@@ -10,14 +10,14 @@ import 'package:bari_vara_project/screens/OwnerScreens/flatlist.dart';
 import 'package:bari_vara_project/screens/OwnerScreens/earning.dart';
 int nid =1;
 void main() => runApp(MaterialApp(
-      initialRoute: '/classify',
+      initialRoute: '/renterlist',
       routes: {
         '/': (context) => LoginScreen(type:'owner'),
         '/classify': (context) => OwnerOrRenter(loginOrReg: 'login'), //1st screen
         '/ownerHome': (context) => OwnerHomeScreen(id: nid,),
         '/renterHome': (context) => RenterHomeScreen(id: 2,),
         '/flatlist': (context) => FlatList(),
-        '/renterlist': (context) => RenterList(),
+        '/renterlist': (context) => RenterList(id: 1,),
         '/earned': (context) => ThisMonthEarning(),
         '/flatDetails': (context) => FlatDetails(),
       },

@@ -7,7 +7,7 @@ class OwnerFlatListController extends GetxController{
   List<OwnerFlatList> flatList = <OwnerFlatList>[].obs;
   var id;
 
-  OwnerFlatListController(this.id);
+  OwnerFlatListController();
 
   @override
   void onInit() {

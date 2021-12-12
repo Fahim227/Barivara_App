@@ -11,7 +11,7 @@ class FlatList extends StatefulWidget {
 }
 
 class _FlatListState extends State<FlatList> {
-  final OwnerFlatListController ownerFlatListController = Get.put(OwnerFlatListController(1));
+  final OwnerFlatListController ownerFlatListController = Get.put(OwnerFlatListController());
 
     late List<OwnerFlatList> _list ; /*[{"flat Number": 1,"flat_renter":"Hasan","flat_renting_price":"10000"},
     {"flat Number": 1,"flat_renter":"Hasan","flat_renting_price":"10000"},
@@ -34,8 +34,9 @@ class _FlatListState extends State<FlatList> {
   @override
   Widget build(BuildContext context) {
 
-    /*final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
-    print(id['id']);*/
+    final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
+    print(id['id']);
+    ownerFlatListController.id = id['id'];
     return Scaffold(
       appBar: AppBar(title: Text('Flat List'),),
       body: /*Container(

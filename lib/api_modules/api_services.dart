@@ -81,5 +81,20 @@ class ApiService{
     }
 
   }
+  
+  static Future<List<Renter>> getRenterList(int id) async {
+    var response = await client.post(
+        Uri.parse(address+'renterList/'),
+        body: {
+          'id':id.toString()
+        }
+    );
+    if(response.statusCode == 200 || response.statusCode == 400){
+      print(response.body);
+      return renterListFromJson(response.body);
+    }
+    return renterListFromJson(response.body);
+
+  }
 
 }

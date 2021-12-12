@@ -164,7 +164,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => RenterList(),
+                          builder: (context) => RenterList(id: widget.id, ),
                           settings: RouteSettings(
                               arguments: {"id": widget.id}
                           )
