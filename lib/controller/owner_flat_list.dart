@@ -7,17 +7,17 @@ class OwnerFlatListController extends GetxController{
   List<OwnerFlatList> flatList = <OwnerFlatList>[].obs;
   var id;
 
-  OwnerFlatListController();
+  OwnerFlatListController({required this.id});
 
   @override
   void onInit() {
     // TODO: implement onInit
-    fetchFlats(this.id);
+    fetchFlats();
     super.onInit();
   }
 
 
-  void fetchFlats(int id) async {
+  void fetchFlats() async {
     try{
       isLoading(true);
       var flats = await ApiService.getOwnerFlats(id);

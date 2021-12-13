@@ -4,14 +4,15 @@ import 'package:bari_vara_project/screens/flatdetails.dart';
 import 'package:get/get.dart';
 import 'package:bari_vara_project/controller/owner_flat_list.dart';
 class FlatList extends StatefulWidget {
-  const FlatList({Key? key}) : super(key: key);
+  final int id;
+  const FlatList({Key? key, required this.id}) : super(key: key);
 
   @override
   _FlatListState createState() => _FlatListState();
 }
 
 class _FlatListState extends State<FlatList> {
-  final OwnerFlatListController ownerFlatListController = Get.put(OwnerFlatListController());
+   late OwnerFlatListController ownerFlatListController;
 
     late List<OwnerFlatList> _list ; /*[{"flat Number": 1,"flat_renter":"Hasan","flat_renting_price":"10000"},
     {"flat Number": 1,"flat_renter":"Hasan","flat_renting_price":"10000"},
@@ -27,19 +28,37 @@ class _FlatListState extends State<FlatList> {
   @override
   void initState() {
     // TODO: implement initState
-
     super.initState();
+    ownerFlatListController = Get.put(OwnerFlatListController(id: widget.id));
   }
 
   @override
   Widget build(BuildContext context) {
 
-    final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
+    /*final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
     print(id['id']);
-    ownerFlatListController.id = id['id'];
+    ownerFlatListController.id = id['id']; */
+
+    _list = ownerFlatListController.flatList;
     return Scaffold(
       appBar: AppBar(title: Text('Flat List'),),
-      body: /*Container(
+      body: Column(children: [
+        Expanded(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Obx((){
+              return ListView.builder(
+                  itemCount: _list.length,
+                  itemBuilder: (BuildContext context,int index){
+                    return sampleListUi(index);
+                  });
+            }),
+          ),
+        ),
+      ],)
+
+      /*Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView.builder(
@@ -50,7 +69,7 @@ class _FlatListState extends State<FlatList> {
       ),*/
 
 
-      Obx(() {
+     /* Obx(() {
         if (ownerFlatListController.isLoading.value)
           return Center(child: CircularProgressIndicator(),);
         else
@@ -66,7 +85,7 @@ class _FlatListState extends State<FlatList> {
                   return sampleListUi(index);
                 }),
           );
-      })
+      })*/
     );
   }
   Widget sampleListUi(int idx){
