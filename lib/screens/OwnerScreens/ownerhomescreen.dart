@@ -18,24 +18,9 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
   final int totalRenter=0;
   final int leftRoom=0;
   late String finalDate='';
-  static  List<String> months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
+
   @override
   Widget build(BuildContext context) {
-    getCurrentDate();
-    print(finalDate);
     print(widget.id);
     return SafeArea(
       child: Scaffold(
@@ -205,7 +190,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ThisMonthEarning(),
+                          builder: (context) => ThisMonthEarning(id: widget.id,),
                           settings: RouteSettings(
                               arguments: {"id": widget.id}
                           )
@@ -233,14 +218,4 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
     );
   }
 
-  getCurrentDate(){
-
-    var date = new DateTime.now().toString();
-
-    var dateParse = DateTime.parse(date);
-
-    finalDate = months[dateParse.month.toInt()-1];
-
-
-  }
 }

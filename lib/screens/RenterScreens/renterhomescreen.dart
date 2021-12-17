@@ -1,4 +1,5 @@
 
+import 'package:bari_vara_project/controller/renter_profile_controller.dart';
 import 'package:bari_vara_project/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:bari_vara_project/components/backgroundimage.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'package:bari_vara_project/screens/RenterScreens/flatlist.dart';
 import 'package:bari_vara_project/screens/RenterScreens/profile.dart';
 import 'package:bari_vara_project/screens/RenterScreens/addflats.dart';
+import 'package:get/get.dart';
 
 class RenterHomeScreen extends StatefulWidget {
   final int id;
@@ -32,26 +34,29 @@ class _RenterHomeScreenState extends State<RenterHomeScreen> {
   String emergency_phone='Fahim';
   int _current_idx = 0;
 
-  final tabs = [
-    FlatList(),
-    Profile(
-      name: 'Md. Fahim Islam',
-      fathers_name: 'Md. Nazrul Islam',
-      birth: '9/01/1999',
-      permanenet_address: 'kfnsdosfsdoi foi sd fsoisndo',
-      occupation: 'Student',
-      phone: '01234567989',
-      email: 'fahim@gmail.com',
-      nid: '569871682',
-      emergency_name: 'Soemthid',
-      emergency_phone: '0123548745',
-    ),
 
-  ];
 
 
   @override
   Widget build(BuildContext context) {
+
+    final tabs = [
+      FlatList(id:widget.id),
+      Profile(
+        id:widget.id
+        /*name: 'Md. Fahim Islam',
+        fathers_name: 'Md. Nazrul Islam',
+        birth: '9/01/1999',
+        permanenet_address: 'kfnsdosfsdoi foi sd fsoisndo',
+        occupation: 'Student',
+        phone: '01234567989',
+        email: 'fahim@gmail.com',
+        nid: '569871682',
+        emergency_name: 'Soemthid',
+        emergency_phone: '0123548745',*/
+      ),
+
+    ];
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -82,7 +87,7 @@ class _RenterHomeScreenState extends State<RenterHomeScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             // Add your onPressed code here!
-            Navigator.push(context, MaterialPageRoute(builder: (context) => RenterAddFlats()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => RenterAddFlats(id:widget.id)));
           },
           child: const Icon(Icons.add),
           backgroundColor: Colors.green,

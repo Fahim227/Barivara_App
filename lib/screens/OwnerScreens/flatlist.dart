@@ -1,6 +1,7 @@
 import 'package:bari_vara_project/models/owner/owner_flat_list_model.dart';
+import 'package:bari_vara_project/screens/OwnerScreens/owner_flat_details.dart';
 import 'package:flutter/material.dart';
-import 'package:bari_vara_project/screens/flatdetails.dart';
+import 'package:bari_vara_project/screens/RenterScreens/flatdetails.dart';
 import 'package:get/get.dart';
 import 'package:bari_vara_project/controller/owner_flat_list.dart';
 class FlatList extends StatefulWidget {
@@ -94,7 +95,7 @@ class _FlatListState extends State<FlatList> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FlatDetails(),
+            builder: (context) => OwnerFlatDetails(),
             // Pass the arguments as part of the RouteSettings. The
             // DetailScreen reads the arguments from these settings.
             settings: RouteSettings(

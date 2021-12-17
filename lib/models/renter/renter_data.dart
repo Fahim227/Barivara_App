@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:bari_vara_project/models/owner/owner_flat_list_model.dart';
 
 List<Renter> renterListFromJson(String str) => List<Renter>.from(json.decode(str).map((x) => Renter.fromJson(x)));
+Renter profileFromJson(String str) => json.decode(str).map((x) => Renter.fromJson(x));
+
 
 class Renter{
   late int renter_id;

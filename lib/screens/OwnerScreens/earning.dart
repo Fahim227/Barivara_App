@@ -1,7 +1,13 @@
+import 'package:bari_vara_project/controller/this_month_earnings.dart';
+import 'package:bari_vara_project/models/owner/this_month_earnings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 class ThisMonthEarning extends StatefulWidget {
-  const ThisMonthEarning({Key? key}) : super(key: key);
+  final int id;
+  const ThisMonthEarning({Key? key,required this.id}) : super(key: key);
 
   @override
   _ThisMonthEarningState createState() => _ThisMonthEarningState();
@@ -20,6 +26,23 @@ class _ThisMonthEarningState extends State<ThisMonthEarning> {
     {"flat_number": 1,"flat_amount":"5000","earned":1000.01,"remained": 4000.99},
     {"flat_number": 1,"flat_amount":"5000","earned":1000.01,"remained": 4000.99},
   ];
+  static  List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+  late List<ThisMonthEarnings> earnings;
+  late ThisMonthEarningsController thisMonthEarningsController;
+  late String month;
   double total_earning =0;
   double total_remaining =0;
   String defaultValue = 'Custom broadcast receiver';
@@ -27,6 +50,11 @@ class _ThisMonthEarningState extends State<ThisMonthEarning> {
   @override
   void initState() {
     super.initState();
+    var date = new DateTime.now().toString();
+    var dateParse = DateTime.parse(date);
+    month = months[dateParse.month.toInt()-1];
+
+    thisMonthEarningsController = Get.put(ThisMonthEarningsController(month: month,id:widget.id));
 
     for(int i =0;i<_list.length;i++){
       total_earning += _list[i]["earned"];
@@ -42,22 +70,29 @@ class _ThisMonthEarningState extends State<ThisMonthEarning> {
 
   @override
   Widget build(BuildContext context) {
+    earnings = thisMonthEarningsController.earningList;
+    print("Length ${thisMonthEarningsController.earningList.length}");
     final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
     print(id['id']);
     return Scaffold(
       appBar: AppBar(title: Text('Income Details'),),
-      body: SingleChildScrollView(
-        child: Column(
+      body: //SingleChildScrollView(
+         Column(
           children: [
-             Container(
-              height: MediaQuery.of(context).size.height*0.7,
-              width: MediaQuery.of(context).size.width,
-              child: ListView.builder(
-                  itemCount: _list.length,
-                  itemBuilder: (BuildContext context,int index){
-                    return sampleListUi(index);
-                  }),
+             Expanded(
+               child:Container(
+                height: MediaQuery.of(context).size.height*0.7,
+                width: MediaQuery.of(context).size.width,
+                child: Obx((){
+                  return  ListView.builder(
+                      itemCount: earnings.length,
+                      itemBuilder: (BuildContext context,int index){
+                        return sampleListUi(index);
+                      });
+                }),
+
             ),
+             ),
             SizedBox(height: 5,),
             Container(
               child: Card(
@@ -89,7 +124,7 @@ class _ThisMonthEarningState extends State<ThisMonthEarning> {
             )*/
           ],
         ),
-      ),
+      //),
     );
   }
 

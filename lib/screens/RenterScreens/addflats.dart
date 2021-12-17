@@ -1,17 +1,23 @@
+import 'package:bari_vara_project/controller/add_flats_controller.dart';
+import 'package:bari_vara_project/models/renter/flat_for_rent.dart';
 import 'package:flutter/material.dart';
-import 'package:bari_vara_project/screens/flatdetails.dart';
+import 'package:bari_vara_project/screens/RenterScreens/flatdetails.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 class RenterAddFlats extends StatefulWidget {
-  const RenterAddFlats({Key? key}) : super(key: key);
+  final int id;
+  const RenterAddFlats({Key? key,required this.id}) : super(key: key);
 
   @override
   _RenterAddFlatsState createState() => _RenterAddFlatsState();
 }
 
 class _RenterAddFlatsState extends State<RenterAddFlats> {
-
+  var addFlatsController = Get.put(AddFlatsController());
   var referalController = TextEditingController();
 
-  List _list = [];
+  List<FlatListForRent> _list = [];
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +52,13 @@ class _RenterAddFlatsState extends State<RenterAddFlats> {
                       onPressed: () {
                         setState(() {
                           getFlatsList(referalController.text);
+
+                            addFlatsController.fetchFlatList(referalController.text);
+                            /*Future.delayed(Duration(seconds: 3),(){
+                              _list = addFlatsController.flatList;
+                              print(_list.length);
+                            });*/
+
                         });
                         },
                       child: Text('Get Flats'),
@@ -66,12 +79,14 @@ class _RenterAddFlatsState extends State<RenterAddFlats> {
                 height: MediaQuery.of(context).size.height*0.74,
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.only(bottom: 10),
-                child: ListView.builder(
-                    itemCount: _list.length,
-                    itemBuilder: (BuildContext context,int index){
-                      return sampleListUi(index);
-                    },
-                    ),
+                child: Obx((){
+                  return  ListView.builder(
+                      itemCount: addFlatsController.flatList.length,
+                      itemBuilder: (BuildContext context,int index){
+                        print(addFlatsController.flatList.length);
+                        return sampleListUi(index);
+                      });
+                })
               ),
 
           ],
@@ -81,13 +96,13 @@ class _RenterAddFlatsState extends State<RenterAddFlats> {
   }
 
   void getFlatsList(String referalNumber){
-    _list = [{"flat Number": 1,"flat_owner":"Hasan","flat_size": "800sqft","flat_renting_price":"10000"},
+    /*_list = [{"flat Number": 1,"flat_owner":"Hasan","flat_size": "800sqft","flat_renting_price":"10000"},
       {"flat Number": 5,"flat_owner":"Fahim","flat_size": "100sqft","flat_renting_price":"8000"},
       {"flat Number": 5,"flat_owner":"Fahim","flat_size": "100sqft","flat_renting_price":"8000"},
       {"flat Number": 5,"flat_owner":"Fahim","flat_size": "100sqft","flat_renting_price":"8000"},
       {"flat Number": 5,"flat_owner":"Fahim","flat_size": "100sqft","flat_renting_price":"8000"}
 
-    ];
+    ];*/
   }
 
   Widget sampleListUi(int idx){
@@ -96,11 +111,11 @@ class _RenterAddFlatsState extends State<RenterAddFlats> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FlatDetails(),
+            builder: (context) => FlatDetails(id: widget.id),
             // Pass the arguments as part of the RouteSettings. The
             // DetailScreen reads the arguments from these settings.
             settings: RouteSettings(
-              arguments: _list[idx],
+              arguments: addFlatsController.flatList[idx],
             ),
           ),
         );
@@ -117,13 +132,13 @@ class _RenterAddFlatsState extends State<RenterAddFlats> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Flat Number:   ${_list[idx]['flat Number']}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
+                Text("Flat Number:   ${addFlatsController.flatList[idx].flatNumber}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
                 SizedBox(height: 5,),
-                Text("Flat Owner:   ${_list[idx]['flat_owner']}", style: TextStyle(color: Colors.white,fontSize: 20),),
+                Text("Flat Owner:   ${addFlatsController.flatList[idx].owner_name}", style: TextStyle(color: Colors.white,fontSize: 20),),
                 SizedBox(height: 5,),
-                Text("Flat Size:   ${_list[idx]['flat_size']}",style: TextStyle(color: Colors.white,fontSize: 20),),
+                Text("Flat Size:   ${addFlatsController.flatList[idx].size}",style: TextStyle(color: Colors.white,fontSize: 20),),
                 SizedBox(height: 5,),
-                Text("Flat Renting Price:   ${_list[idx]['flat_renting_price']}",style: TextStyle(color: Colors.white,fontSize: 20),),
+                Text("Flat Renting Price:   ${addFlatsController.flatList[idx].rentAmount}",style: TextStyle(color: Colors.white,fontSize: 20),),
                 SizedBox(height: 5,),
               ],
             ),
