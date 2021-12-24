@@ -20,6 +20,7 @@ class OwnerFlatList {
     required this.flatAddress,
     required this.flatOwnerId,
     required this.flatRenterId,
+    required this.owner_name,
   });
 
   int flatId;
@@ -32,6 +33,7 @@ class OwnerFlatList {
   int flatOwnerId;
   int flatRenterId;
   String flatRenterName;
+  String owner_name;
 
   factory OwnerFlatList.fromJson(Map<String, dynamic> json) => OwnerFlatList(
     flatRenterName: json['flat_renter_name'],
@@ -44,6 +46,7 @@ class OwnerFlatList {
     flatAddress: json["flat_address"],
     flatOwnerId: json["flat_owner_id"],
     flatRenterId: json["flat_renter_id"],
+    owner_name: json["owner_name"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -56,5 +59,6 @@ class OwnerFlatList {
     "flat_address": flatAddress,
     "flat_owner_id": flatOwnerId,
     "flat_renter_id": flatRenterId,
+    "owner_name": owner_name
   };
 }

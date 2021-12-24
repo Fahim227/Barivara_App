@@ -30,12 +30,12 @@ class _FlatListState extends State<FlatList> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ownerFlatListController = Get.put(OwnerFlatListController(id: widget.id));
+
   }
 
   @override
   Widget build(BuildContext context) {
-
+    ownerFlatListController = Get.put(OwnerFlatListController());
     /*final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
     print(id['id']);
     ownerFlatListController.id = id['id']; */
@@ -43,50 +43,34 @@ class _FlatListState extends State<FlatList> {
     _list = ownerFlatListController.flatList;
     return Scaffold(
       appBar: AppBar(title: Text('Flat List'),),
-      body: Column(children: [
-        Expanded(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Obx((){
-              return ListView.builder(
-                  itemCount: _list.length,
-                  itemBuilder: (BuildContext context,int index){
-                    return sampleListUi(index);
-                  });
-            }),
-          ),
-        ),
-      ],)
+      body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: FutureBuilder(
+            future: ownerFlatListController.fetchFlats(widget.id),
+            builder: (BuildContext context,AsyncSnapshot<List<OwnerFlatList>> snapshot){
+              if(snapshot.data == null){
+                return    SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              else{
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context,int index){
+                      _list = snapshot.data!;
+                      return sampleListUi(index);
+                    });
+              }
 
-      /*Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: ListView.builder(
-            itemCount: _list.length,
-            itemBuilder: (BuildContext context,int index){
-              return sampleListUi(index);
-            }),
-      ),*/
+            },
+          )
+        )
 
-
-     /* Obx(() {
-        if (ownerFlatListController.isLoading.value)
-          return Center(child: CircularProgressIndicator(),);
-        else
-          print(ownerFlatListController.flatList.length);
-          print(ownerFlatListController.flatList[0].flatRenterId);
-          _list = ownerFlatListController.flatList;
-          return Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-                itemCount: _list.length,
-                itemBuilder: (BuildContext context,int index){
-                  return sampleListUi(index);
-                }),
-          );
-      })*/
     );
   }
   Widget sampleListUi(int idx){

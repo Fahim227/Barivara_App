@@ -1,4 +1,5 @@
 import 'package:bari_vara_project/controller/this_month_earnings.dart';
+import 'package:bari_vara_project/models/owner/owner_flat_list_model.dart';
 import 'package:bari_vara_project/models/owner/this_month_earnings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class _OwnerFlatDetailsState extends State<OwnerFlatDetails> {
   @override
   Widget build(BuildContext context) {
     //final FlatListForRent data = ModalRoute.of(context)!.settings.arguments as FlatListForRent;
+    final OwnerFlatList data = ModalRoute.of(context)!.settings.arguments as OwnerFlatList;
     //var data = {"flat Number": 5,"flat_owner":"Fahim","flat_size": "100sqft","flat_renting_price":"8000"};
     return Scaffold(
       appBar: AppBar(title: Text('Flat Details'),),
@@ -30,20 +32,22 @@ class _OwnerFlatDetailsState extends State<OwnerFlatDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Flat Number: data.flatNumbe', style: TextStyle(color: Colors.black,fontSize: 40),),
+              Text('Flat Number: ${data.flatNumber}', style: TextStyle(color: Colors.black,fontSize: 40),),
               SizedBox(height: 20,),
-              Text('Flat Owner: data.owner_nam', style: TextStyle(color: Colors.black,fontSize: 30),),
+              Text('Flat Owner: ${data.owner_name}', style: TextStyle(color: Colors.black,fontSize: 30),),
               SizedBox(height: 20,),
-              Text('Address : data.flatAddress', style: TextStyle(color: Colors.black,fontSize: 20),),
+              Text('Flat Renter: ${data.flatRenterName}', style: TextStyle(color: Colors.black,fontSize: 30),),
               SizedBox(height: 20,),
-              Text('Flat Size: data.sizesqft', style: TextStyle(color: Colors.black,fontSize: 20),),
+              Text('Address : ${data.flatAddress}', style: TextStyle(color: Colors.black,fontSize: 20),),
               SizedBox(height: 20,),
-              Text('Flat Floor Number: data.flatFloorNumber', style: TextStyle(color: Colors.black,fontSize: 20),),
+              Text('Flat Size: ${data.size}sqft', style: TextStyle(color: Colors.black,fontSize: 20),),
               SizedBox(height: 20,),
-              Text('Flat Rent Amount: data.rentAmountTk ', style: TextStyle(color: Colors.black,fontSize: 20),),
+              Text('Flat Floor Number: ${data.flatFloorNumber}', style: TextStyle(color: Colors.black,fontSize: 20),),
+              SizedBox(height: 20,),
+              Text('Flat Rent Amount: ${data.rentAmount}', style: TextStyle(color: Colors.black,fontSize: 20),),
               SizedBox(height: 20,),
 
-              Text('Description: data.flatDescription', style: TextStyle(color: Colors.black,fontSize: 20),),
+              Text('Description:${data.flatDescription}', style: TextStyle(color: Colors.black,fontSize: 20),),
               SizedBox(height: 30,),
 
             ],

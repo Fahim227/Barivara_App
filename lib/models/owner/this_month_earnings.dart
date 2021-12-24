@@ -4,7 +4,17 @@
 
 import 'dart:convert';
 
-List<ThisMonthEarnings> thisMonthEarningsFromJson(String str) => List<ThisMonthEarnings>.from(json.decode(str).map((x) => ThisMonthEarnings.fromJson(x)));
+// To parse this JSON data, do
+//
+//     final thisMonthEarnings = thisMonthEarningsFromJson(jsonString);
+
+import 'dart:convert';
+
+List<ThisMonthEarnings> thisMonthEarningsFromJson(String str){
+  print("Checking");
+  print("Data Type: ${List<ThisMonthEarnings>.from(json.decode(str).map((x) => ThisMonthEarnings.fromJson(x))).runtimeType}");
+  return List<ThisMonthEarnings>.from(json.decode(str).map((x) => ThisMonthEarnings.fromJson(x)));
+}
 
 String thisMonthEarningsToJson(List<ThisMonthEarnings> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
@@ -28,29 +38,53 @@ class ThisMonthEarnings {
   String earningMonth;
   DateTime earningDate;
   String rentOfMonthYear;
-  int earnedAmount;
+  double earnedAmount;
   int ownerId;
   int renterId;
   int flatId;
   String flatNumber;
-  int flatRentAmount;
-  int remainAmount;
+  double flatRentAmount;
+  double remainAmount;
   String renterName;
 
-  factory ThisMonthEarnings.fromJson(Map<String, dynamic> json) => ThisMonthEarnings(
-    earningId: json["earning_id"],
-    earningMonth: json["earning_month"],
-    earningDate: DateTime.parse(json["earning_date"]),
-    rentOfMonthYear: json["rent_of_month_year"],
-    earnedAmount: json["earned_amount"],
-    ownerId: json["owner_id"],
-    renterId: json["renter_id"],
-    flatId: json["flat_id"],
-    flatNumber: json["flat_number"],
-    flatRentAmount: json["flat_rent_amount"],
-    remainAmount: json["remain_amount"],
-    renterName: json["renter_name"],
-  );
+  factory ThisMonthEarnings.fromJson(Map<String, dynamic> json){
+    try{
+      var o = ThisMonthEarnings(
+        earningId: json["earning_id"],
+        earningMonth: json["earning_month"],
+        earningDate: DateTime.parse(json["earning_date"]),
+        rentOfMonthYear: json["rent_of_month_year"],
+        earnedAmount: json["earned_amount"],
+        ownerId: json["owner_id"],
+        renterId: json["renter_id"],
+        flatId: json["flat_id"],
+        flatNumber: json["flat_number"],
+        flatRentAmount: json["flat_rent_amount"],
+        remainAmount: json["remain_amount"],
+        renterName: json["renter_name"],
+      );
+    }on Exception catch(exception){
+      print(exception);
+    }
+    var obj = ThisMonthEarnings(
+      earningId: json["earning_id"],
+      earningMonth: json["earning_month"],
+      earningDate: DateTime.parse(json["earning_date"]),
+      rentOfMonthYear: json["rent_of_month_year"],
+      earnedAmount: json["earned_amount"],
+      ownerId: json["owner_id"],
+      renterId: json["renter_id"],
+      flatId: json["flat_id"],
+      flatNumber: json["flat_number"],
+      flatRentAmount: json["flat_rent_amount"],
+      remainAmount: json["remain_amount"],
+      renterName: json["renter_name"],
+    );
+    print("OK fromJson ${obj.flatNumber}");
+    print('this is flat number ${json["flat_number"]}');
+    print("OK fromJson 3");
+    return obj;
+  }
 
   Map<String, dynamic> toJson() => {
     "earning_id": earningId,

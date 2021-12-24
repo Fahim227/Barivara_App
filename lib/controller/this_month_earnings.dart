@@ -1,6 +1,7 @@
 
 import 'package:bari_vara_project/api_modules/api_services.dart';
 import 'package:bari_vara_project/models/owner/this_month_earnings.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ThisMonthEarningsController extends GetxController{
@@ -8,27 +9,28 @@ class ThisMonthEarningsController extends GetxController{
 
   var isLoading = true.obs;
   List<ThisMonthEarnings> earningList = <ThisMonthEarnings>[].obs;
-  var month,id;
+  //var month,id;
 
-  ThisMonthEarningsController({required this.month,required this.id});
+  ThisMonthEarningsController();
 
   @override
   void onInit() {
     // TODO: implement onInit
-    fetchEarnings();
+    //fetchEarnings();
     super.onInit();
   }
 
 
-  void fetchEarnings() async {
+  Future<List<ThisMonthEarnings>> fetchEarnings(String month,int id) async {
+    var earnings = await ApiService.getThisMonthEarning(month.toString(),id.toString());
     try{
-      isLoading(true);
-      var earnings = await ApiService.getThisMonthEarning(month.toString(),id.toString());
       if (earnings !=null){
         earningList.assignAll(earnings);
+        print(earnings.length);
+        return earnings;
       }
     }finally{
-      isLoading(false);
+      return earnings;
     }
   }
 

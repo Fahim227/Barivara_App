@@ -141,7 +141,7 @@ class ApiService{
   }
 
   static Future<List<ThisMonthEarnings>> getThisMonthEarning(String month,String id) async {
-    print('getThisMonthEarning');
+    //print('getThisMonthEarning');
     var response = await client.post(
         Uri.parse(address+'currentMonthEarning/'),
         body: {
@@ -150,7 +150,8 @@ class ApiService{
         }
     );
     if(response.statusCode == 200 || response.statusCode == 400){
-      print(response.body);
+      //print(response.body);
+      print("Flat Number: ${response.body}");
       return thisMonthEarningsFromJson(response.body);
     }
     else{

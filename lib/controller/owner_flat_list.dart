@@ -3,29 +3,28 @@ import 'package:bari_vara_project/models/owner/owner_flat_list_model.dart';
 import 'package:get/get.dart';
 class OwnerFlatListController extends GetxController{
 
-  var isLoading = true.obs;
   List<OwnerFlatList> flatList = <OwnerFlatList>[].obs;
   var id;
 
-  OwnerFlatListController({required this.id});
+  OwnerFlatListController();
 
   @override
   void onInit() {
     // TODO: implement onInit
-    fetchFlats();
+    //fetchFlats();
     super.onInit();
   }
 
 
-  void fetchFlats() async {
+  Future<List<OwnerFlatList>> fetchFlats(int id) async {
+    var flats = await ApiService.getOwnerFlats(id);
     try{
-      isLoading(true);
-      var flats = await ApiService.getOwnerFlats(id);
       if (flats !=null){
         flatList.assignAll(flats);
+        return flats;
       }
     }finally{
-      isLoading(false);
+      return flats;
     }
   }
 

@@ -8,6 +8,7 @@ import 'package:bari_vara_project/screens/classify.dart';
 import 'package:bari_vara_project/screens/OwnerScreens/ownerhomescreen.dart';
 import 'package:bari_vara_project/screens/RenterScreens/renterhomescreen.dart';
 import 'package:bari_vara_project/screens/OwnerScreens/flatlist.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
 class RenterList extends StatefulWidget {
@@ -36,12 +37,13 @@ class _RenterListState extends State<RenterList> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    renterListController = Get.put(RenterListController(id: widget.id));
+
   }
 
 
   @override
   Widget build(BuildContext context) {
+    renterListController = Get.put(RenterListController());
     /*final Map<String,Object> id = ModalRoute.of(context)!.settings.arguments as Map<String,Object>;
     print(id['id']);*/
 
@@ -52,21 +54,33 @@ class _RenterListState extends State<RenterList> {
     print("list ${_list.length}");
     return Scaffold(
       appBar: AppBar(title: Text('Renter List'),),
-      body: Column(children: [
-        Expanded(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Obx((){
-              return ListView.builder(
-                  itemCount: _list.length,
-                  itemBuilder: (BuildContext context,int index){
-                    return sampleListUi(index);
-                  });
-            }),
+      body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: FutureBuilder(
+            future: renterListController.fetchRenters(widget.id),
+            builder:(BuildContext context,AsyncSnapshot<List<Renter>> snapshot){
+              if(snapshot.data == null){
+                return    SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              else{
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context,int index){
+                      _list = snapshot.data!;
+                      return sampleListUi(index);
+                    });
+              }
+            }
+
           ),
         ),
-      ],)
     );
   }
 
@@ -108,7 +122,9 @@ class _RenterListState extends State<RenterList> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: ElevatedButton.icon(
-                          onPressed: (){},
+                          onPressed: () async {
+                            await FlutterPhoneDirectCaller.callNumber(_list[idx].phone);
+                          },
                           icon: Icon(Icons.phone),
                           label: Text('Call'),
                           style: ElevatedButton.styleFrom(

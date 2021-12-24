@@ -42,7 +42,7 @@ class _FlatListState extends State<FlatList> {
         future: renterFlatListController.fetchFlats(widget.id),
         builder: (BuildContext context,AsyncSnapshot<List<RenterFlat>> snapshot){
           if(snapshot.data == null){
-            return    SizedBox(
+            return SizedBox(
               height: 100,
               width: 100,
               child: Center(
